@@ -6,22 +6,18 @@
 
 ## Installation
 
-### [Awesome script manager](https://github.com/shinokada/awesome)
+### Linux/macOS: Using the [Awesome script manager](https://github.com/shinokada/awesome)
 
-Install [`awesome` script package manager](https://github.com/shinokada/awesome) first:
+After installing [`awesome` script package manager](https://github.com/shinokada/awesome):
 
 ```sh
-curl -s https://raw.githubusercontent.com/shinokada/awesome/main/install | bash -s install
+awesome -i shinokada/gitig
 ```
-
-### Clone/Download
-
-You can can clone/download the script.
 
 ## Uninstallation
 
 ```sh
-awesome uninstall gitig
+awesome rm gitig
 ```
 
 ## Usage
