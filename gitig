@@ -1,4 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+is_git_repo() {
+    if ! git -C . rev-parse >&/dev/null; then
+        echo "This is not a git repo."
+        exit 1
+    fi
+}
 
 function git_current_branch() {
     ref=$(git symbolic-ref HEAD 2>/dev/null) ||
@@ -17,6 +24,7 @@ REPO=$(git_current_repository)
 DATE=$(date +"%Y-%m-%d %T")
 MSG="> Gitignore updated at $DATE"
 
+is_git_repo
 echo "> Removing cached from $REPO ..."
 git rm -rf --cached .
 echo "> Running git add . ..."
