@@ -66,3 +66,5 @@ fn_main() {
         esac
     fi
 }
+
+fn_main "$@"
