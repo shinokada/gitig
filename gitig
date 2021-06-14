@@ -2,10 +2,6 @@
 
 version="0.1.0"
 script_name=$(basename "$0")
-BRANCH=$(git_current_branch)
-REPO=$(git_current_repository)
-DATE=$(date +"%Y-%m-%d %T")
-MSG="> Gitignore updated at $DATE"
 
 is_git_repo() {
     if ! git -C . rev-parse >&/dev/null; then
@@ -43,6 +39,10 @@ EOF
 
 run() {
     is_git_repo
+    BRANCH=$(git_current_branch)
+    REPO=$(git_current_repository)
+    DATE=$(date +"%Y-%m-%d %T")
+    MSG="> Gitignore updated at $DATE"
     echo "> Removing cached from $REPO ..."
     git rm -rf --cached .
     echo "> Running git add . ..."
