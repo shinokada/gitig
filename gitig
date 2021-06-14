@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+version="0.1.0"
+script_name=$(basename "$0")
+BRANCH=$(git_current_branch)
+REPO=$(git_current_repository)
+DATE=$(date +"%Y-%m-%d %T")
+MSG="> Gitignore updated at $DATE"
+
 is_git_repo() {
     if ! git -C . rev-parse >&/dev/null; then
         echo "This is not a git repo."
@@ -7,30 +14,55 @@ is_git_repo() {
     fi
 }
 
-function git_current_branch() {
+git_current_branch() {
     ref=$(git symbolic-ref HEAD 2>/dev/null) ||
         ref=$(git rev-parse --short HEAD 2>/dev/null) || return
     echo "${ref#refs/heads/}"
 }
 
-function git_current_repository() {
+git_current_repository() {
     ref=$(git symbolic-ref HEAD 2>/dev/null) ||
         ref=$(git rev-parse --short HEAD 2>/dev/null) || return
     git remote -v | cut -d':' -f 2
 }
 
-BRANCH=$(git_current_branch)
-REPO=$(git_current_repository)
-DATE=$(date +"%Y-%m-%d %T")
-MSG="> Gitignore updated at $DATE"
+usage() {
+    cat <<EOF
+Name: $script_name
+Description: gitig recursively removes all unstaged and paths from the index. And it adds all files, commit, and push to the origin main.
+Examples:
+    # run
+    gitig
+    # print this help
+    gitig -h
+    # print version
+    gitig -v
+EOF
+    exit
+}
 
-is_git_repo
-echo "> Removing cached from $REPO ..."
-git rm -rf --cached .
-echo "> Running git add . ..."
-git add .
-echo "> Running git commit -m ..."
-git commit -m "$MSG"
-echo "> Running git push origin $BRANCH ..."
-git push origin "$BRANCH"
-echo "$MSG"
+run() {
+    is_git_repo
+    echo "> Removing cached from $REPO ..."
+    git rm -rf --cached .
+    echo "> Running git add . ..."
+    git add .
+    echo "> Running git commit -m ..."
+    git commit -m "$MSG"
+    echo "> Running git push origin $BRANCH ..."
+    git push origin "$BRANCH"
+    echo "$MSG"
+}
+
+fn_main() {
+    if (($# == 0)); then
+        run
+        exit
+    else
+        case $1 in
+        -h | --help) usage ;;
+        -v | --version) echo "${version}" ;;
+        *) usage ;;
+        esac
+    fi
+}

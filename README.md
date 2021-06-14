@@ -23,7 +23,14 @@ awesome rm gitig
 ## Usage
 
 ```sh
+# run
 gitig
+
+# print help
+gitig -h
+
+# print version
+gitig -v
 ```
 
 ## Author
