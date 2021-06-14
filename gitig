@@ -25,12 +25,17 @@ git_current_repository() {
 usage() {
     cat <<EOF
 Name: $script_name
+
 Description: gitig recursively removes all unstaged and paths from the index. And it adds all files, commit, and push to the origin main.
+
 Examples:
+
     # run
     gitig
+
     # print this help
     gitig -h
+    
     # print version
     gitig -v
 EOF
