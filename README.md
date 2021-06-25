@@ -1,8 +1,12 @@
-# gitig
+# Gitig
 
 ## Overview
 
 `gitig` recursively removes all unstaged and paths from the index. And it adds all files, commit, and push to the origin main.
+
+## Requirements
+
+UNIX-lie (Tested on Ubuntu and MacOS.)
 
 ## Installation
 
