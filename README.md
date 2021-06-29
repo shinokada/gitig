@@ -41,7 +41,7 @@ gitig -v
 
 Shinichi Okada
 
-## Licence
+## License
 
 MIT License
 
